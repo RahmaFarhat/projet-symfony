@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des formations</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Référence</th>
+                <th</th>
+                <th>Description</th>
+                <th>Date début</th>
+                <th>Date fin</th>
+                <th>Nombre de participants</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for formation in formations %}
+            
+                <tr>
+                    <td>{{ formation.ref }}</td>
+                    <td>{{ formation.Titre |upper}}</td>
+                    <td>{{ formation.Description }}</td>
+                    <td>{{ formation.date_debut }}</td>
+                    <td>{{ formation.date_fin }}</td>
+                    <td>{{ formation.nb_participants }}</td>
+                </tr>
+             
+
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Le nombre de formations est:
+					{{ formations|length }}</p>
+                    {% for formation in formations %}
+		{% if formation.Description == 'formation theorique' %}
+			{{ formation.Titre }}
+            
+		{% endif %}
+
+	{% endfor %}
+      {% set maxMbParticipant = 0 %}
+    {% for formation in formations %}
+   
+    {% set maxMbParticipant = max(formation.nb_participants,maxMbParticipant) %}
+    {% endfor %}
+    {% for formation in formations %}
+    {% if formation.nb_participants == maxMbParticipant %}
+    <h3>formation avec max participant:
+    {{ formation.Titre }}
+    </h3>
+    {% endif %}
+    {% endfor %} 
+    
+  
+{% endblock %}
